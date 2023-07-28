@@ -14,4 +14,7 @@
     <string name="my_location">My Location</string>
     <string name="my_representatives_title">My Representative</string>
     <string name="ballot_information">Ballot Info</string>
+    <string name="election_info">Election Information: %s</string>
+    <string name="follow_election_text">Follow Election</string>
+    <string name="unfollow_election_text">Unfollow Election</string>
 </resources>
