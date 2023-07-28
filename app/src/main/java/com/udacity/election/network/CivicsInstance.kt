@@ -17,28 +17,28 @@ object CivicsInstance {
         .add(KotlinJsonAdapterFactory())
         .build()
 
+    private fun buildOkHttpClient(): OkHttpClient {
+    return OkHttpClient.Builder().addInterceptor { chain ->
+        val original = chain.request()
+        val url = original
+            .url()
+            .newBuilder()
+            .addQueryParameter("key", API_KEY)
+            .build()
+        val request = original
+            .newBuilder()
+            .url(url)
+            .build()
+        chain.proceed(request)
+    }.build()
+    }
+
     private val retrofitIntstance = Retrofit.Builder()
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(moshiInstance))
         .client(buildOkHttpClient())
         .baseUrl(BASE_URL)
         .build()
-
-    private fun buildOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor { chain ->
-            val original = chain.request()
-            val url = original
-                .url()
-                .newBuilder()
-                .addQueryParameter("key", API_KEY)
-                .build()
-            val request = original
-                .newBuilder()
-                .url(url)
-                .build()
-            chain.proceed(request)
-        }.build()
-    }
 
     private val retrofitService: CivicsApiService by lazy {
         retrofitIntstance.create(CivicsApiService::class.java)

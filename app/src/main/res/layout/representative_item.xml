@@ -5,7 +5,7 @@
     <data>
         <variable
             name="representative"
-            type="com.udacity.election.network.models.Representative" />
+            type="com.udacity.election.representative.model.Representative" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
