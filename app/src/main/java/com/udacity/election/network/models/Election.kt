@@ -2,10 +2,10 @@ package com.udacity.election.network.models
 
 import androidx.room.*
 import com.squareup.moshi.*
-import com.udacity.election.network.models.Division
 import java.util.*
+import com.udacity.election.database.Constants
 
-@Entity(tableName = "election_table")
+@Entity(tableName = Constants.ELECTION_TABLE_NAME)
 data class Election(
         @PrimaryKey val id: Int,
         @ColumnInfo(name = "name")val name: String,
