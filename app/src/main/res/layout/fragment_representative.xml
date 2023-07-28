@@ -1,118 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:motion="http://schemas.android.com/tools">
-
-    <!-- TODO: Add data binding node -->
-
-    <!-- TODO: Add motion scene to hide form on vertical scroll. -->
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.udacity.election.representative.RepresentativesViewModel" />
+    </data>
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
-
-        <!-- TODO: Add visual styling and content -->
+        android:layout_width="match_parent"
+        app:layoutDescription="@xml/represent_fragment_scene">
         <TextView
-            android:id="@+id/search_title"
+            android:id="@+id/tv_search_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/representative_search"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- TODO: Add data binding value -->
-        <!-- TODO: Add visual styling and content -->
         <EditText
-            android:id="@+id/address_line_1"
+            android:id="@+id/edittext_address_line_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:ems="10"
             android:inputType="textPostalAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_title" />
-
-        <!-- TODO: Add data binding value -->
-        <!-- TODO: Add visual styling and content -->
+            android:hint="@string/address_line_1"
+            android:autofillHints="@string/address_line_1"
+            android:text="@={viewModel.address.line1}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_search_title" />
         <EditText
-            android:id="@+id/address_line_2"
+            android:id="@+id/edittext_address_line_2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:autofillHints=""
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:ems="10"
             android:inputType="textPostalAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_line_1" />
-
-        <!-- TODO: Add data binding value -->
-        <!-- TODO: Add visual styling and content -->
+            android:hint="@string/address_line_2"
+            android:autofillHints="@string/address_line_2"
+            android:text="@={viewModel.address.line2}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edittext_address_line_1" />
         <EditText
-            android:id="@+id/city"
+            android:id="@+id/edittext_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:inputType="textPostalAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/state"
-            app:layout_constraintTop_toBottomOf="@id/address_line_2" />
-
-        <!-- TODO: Add default values from provided resources  -->
-        <!-- TODO: Add data binding value -->
-        <!-- TODO: Add visual styling and content -->
+            android:autofillHints="@string/city"
+            android:ems="10"
+            android:hint="@string/city"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@={viewModel.address.city}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_address_line_2" />
         <Spinner
-            android:id="@+id/state"
+            android:id="@+id/spinner_state"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:autofillHints=""
-            android:inputType="textPostalAddress"
-            app:layout_constraintStart_toEndOf="@id/city"
+            android:entries="@{viewModel.states}"
+            android:selectedItemPosition="@={viewModel.selectedStateIndex}"
+            app:layout_constraintBottom_toBottomOf="@id/edittext_city"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/city"
-            app:layout_constraintBottom_toBottomOf="@id/city"/>
-
-        <!-- TODO: Add data binding value -->
-        <!-- TODO: Add visual styling and content -->
+            app:layout_constraintLeft_toRightOf="@id/edittext_city"
+            app:layout_constraintTop_toTopOf="@id/edittext_city" />
         <EditText
-            android:id="@+id/zip"
+            android:id="@+id/edditext_zip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:inputType="number"
-            android:maxLength="5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/city"
-            app:layout_constraintTop_toBottomOf="@id/city" />
-
-        <!-- TODO: Add visual styling and label -->
+            android:autofillHints="@string/zip"
+            android:ems="10"
+            android:hint="@string/zip"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@={viewModel.address.zip}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_city" />
         <Button
-            android:id="@+id/button_search"
+            android:id="@+id/btn_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/zip" />
-
-        <!-- TODO: Add visual styling and content -->
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:text="@string/search_my_presentatives"
+            app:layout_constraintTop_toBottomOf="@id/edditext_zip" />
         <Button
-            android:id="@+id/button_location"
+            android:id="@+id/btn_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/button_search" />
-
-        <!-- TODO: Add visual styling and content -->
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:text="@string/my_location"
+            app:layout_constraintTop_toBottomOf="@id/btn_search" />
         <TextView
-            android:id="@+id/representative_title"
+            android:id="@+id/tv_representatives_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            android:text="@string/my_representatives_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_location" />
-
-        <!-- TODO: Add Representatives RecyclerView -->
-
-        <!-- TODO: Add visual styling and content -->
-        <TextView
-            android:id="@+id/list_placeholder"
-            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_location" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_representatives"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:visibility="gone"
-            motion:visibilityMode="ignore"
-            app:layout_constraintTop_toBottomOf="@id/representative_title"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginBottom="@dimen/small_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_representatives_title"
+            tools:itemCount="4"
+            tools:listitem="@layout/representative_item">
+        </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
