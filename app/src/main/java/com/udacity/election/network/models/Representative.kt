@@ -1,4 +1,4 @@
-package com.udacity.election.models
+package com.udacity.election.network.models
 
 data class Representative (
         val official: Official,

@@ -14,7 +14,6 @@ abstract class ElectionDatabase: RoomDatabase() {
     abstract val electionDao: ElectionDao
 
     companion object {
-
         @Volatile
         private var INSTANCE: ElectionDatabase? = null
 
@@ -29,14 +28,12 @@ abstract class ElectionDatabase: RoomDatabase() {
                     )
                             .fallbackToDestructiveMigration()
                             .build()
-
                     INSTANCE = instance
                 }
-
                 return instance
             }
         }
-
     }
-
+    suspend fun insertAll(elections: List<Election>) = dao.insertAll(elections)
+    fun getAll() = dao.getAll()
 }

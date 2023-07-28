@@ -5,7 +5,7 @@
     <data>
         <variable
             name="election"
-            type="com.udacity.election.models.Election" />
+            type="com.udacity.election.network.models.Election" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

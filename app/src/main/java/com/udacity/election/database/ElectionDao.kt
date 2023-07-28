@@ -1,18 +1,26 @@
 package com.udacity.election.database
 
-import androidx.room.Dao
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.udacity.election.network.models.Election
 
 @Dao
 interface ElectionDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(elections: List<Election>)
 
-    //TODO: Add insert query
+    @Query("SELECT * FROM ${Constants.ELECTION_TABLE_NAME}")
+    fun getAll(): LiveData<List<Election>>
 
-    //TODO: Add select all election query
+    @Query("SELECT * FROM ${Constants.ELECTION_TABLE_NAME} WHERE id = :id")
+    suspend fun getById(id: Int) : Election?
 
-    //TODO: Add select single election query
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOne(election: Election)
 
-    //TODO: Add delete query
+    @Delete
+    suspend fun deleteOne(election: Election)
 
-    //TODO: Add clear query
-
+    @Query("DELETE FROM ${Constants.ELECTION_TABLE_NAME}")
+    suspend fun clear()
 }
