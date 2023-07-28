@@ -4,16 +4,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.udacity.election.network.models.Election
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.udacity.election.databinding.ElectionItemBinding
 import androidx.recyclerview.widget.DiffUtil
+import com.udacity.election.databinding.ElectionItemBinding
 
-class ElectionListAdapter(private val clickListener: ElectionListener)
+class ElectionListAdapter(private val itemClickListener: ElectionItemClickListener)
     : ListAdapter<Election, ElectionViewHolder>(ElectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElectionViewHolder {
-        return ElectionViewHolder.from(parent)
+        return ElectionViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ElectionViewHolder, position: Int) {
@@ -32,7 +31,7 @@ class ElectionViewHolder private constructor(private val binding: ElectionItemBi
     companion object {
         fun create(parent: ViewGroup) : ElectionViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ElectionListItemBinding.inflate(layoutInflater, parent, false)
+            val binding = ElectionItemBinding.inflate(layoutInflater, parent, false)
             return ElectionViewHolder(binding)
         }
     }

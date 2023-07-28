@@ -34,6 +34,6 @@ abstract class ElectionDatabase: RoomDatabase() {
             }
         }
     }
-    suspend fun insertAll(elections: List<Election>) = dao.insertAll(elections)
-    fun getAll() = dao.getAll()
+    suspend fun insertAll(elections: List<Election>) = electionDao.insertAll(elections)
+    fun getAll() = electionDao.getAll()
 }

@@ -1,9 +1,6 @@
 package com.udacity.election.network.models
 
 import com.squareup.moshi.JsonClass
-import com.udacity.election.network.models.Election
-import com.udacity.election.network.models.ElectionOfficial
-import com.udacity.election.network.models.State
 
 @JsonClass(generateAdapter = true)
 class VoterInfoResponse (

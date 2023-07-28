@@ -9,7 +9,7 @@ import com.udacity.election.network.models.VoterInfo
 @Database(entities = [VoterInfo::class], version = 1, exportSchema = false)
 abstract class VoterInfoDatabase: RoomDatabase() {
 
-    abstract val dao: VoterInfoDao
+    abstract val voterInfoDao: VoterInfoDao
 
     companion object {
         @Volatile
@@ -33,6 +33,6 @@ abstract class VoterInfoDatabase: RoomDatabase() {
         }
     }
 
-    suspend fun insert(voterInfo: VoterInfo) = dao.insert(voterInfo)
-    suspend fun get(id: Int) = dao.get(id)
+    suspend fun insert(voterInfo: VoterInfo) = voterInfoDao.insert(voterInfo)
+    suspend fun get(id: Int) = voterInfoDao.get(id)
 }

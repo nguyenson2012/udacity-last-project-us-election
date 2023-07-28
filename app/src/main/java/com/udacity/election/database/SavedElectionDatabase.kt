@@ -35,7 +35,7 @@ abstract class SavedElectionDatabase: RoomDatabase() {
     }
 
     fun getAll() = dao.getAll()
-    suspend fun get(id: Int) = dao.get(id)
-    suspend fun insert(election: Election) = dao.insert(election)
-    suspend fun delete(election: Election) = dao.delete(election)
+    suspend fun get(id: Int) = dao.getById(id)
+    suspend fun insert(election: Election) = dao.insertOne(election)
+    suspend fun delete(election: Election) = dao.deleteOne(election)
 }

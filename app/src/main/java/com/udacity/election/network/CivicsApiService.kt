@@ -5,13 +5,9 @@ import retrofit2.http.Query
 import com.udacity.election.network.models.ElectionResponse
 import com.udacity.election.network.models.RepresentativeResponse
 import com.udacity.election.network.models.VoterInfoResponse
-
-private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
-
 /**
  *  Documentation for the Google Civics API Service can be found at https://developers.google.com/civic-information/docs/v2
  */
-
 interface CivicsApiService {
     @GET("elections")
     suspend fun getElections(): ElectionResponse

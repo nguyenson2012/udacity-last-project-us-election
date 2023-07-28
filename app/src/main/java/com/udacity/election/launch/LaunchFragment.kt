@@ -3,6 +3,8 @@ package com.udacity.election.launch
 import android.app.Fragment
 import android.os.Bundle
 import android.view.*
+import androidx.lifecycle.LifecycleOwner
+import com.udacity.election.databinding.FragmentLaunchBinding
 
 class LaunchFragment : Fragment() {
 
@@ -12,8 +14,8 @@ class LaunchFragment : Fragment() {
         val binding = FragmentLaunchBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        binding.representativeButton.setOnClickListener { navToRepresentatives() }
-        binding.upcomingButton.setOnClickListener { navToElections() }
+        binding.btnRepresentatives.setOnClickListener { navToRepresentatives() }
+        binding.btnUpcomingElection.setOnClickListener { navToElections() }
 
         return binding.root
     }

@@ -5,6 +5,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.udacity.election.network.models.VoterInfo
 import com.udacity.election.R
 
@@ -19,9 +21,9 @@ fun bindElectionInfoTitleText(view: TextView, voterInfo: VoterInfo?) {
 fun bindFollowButtonText(button: Button, isElectionSaved: Boolean?) {
     if(isElectionSaved != null) {
         if (isElectionSaved) {
-            button.text = button.resources.getString(R.string.unfollow_election)
+            button.text = button.resources.getString(R.string.unfollow_election_text)
         } else {
-            button.text = button.resources.getString(R.string.follow_election)
+            button.text = button.resources.getString(R.string.follow_election_text)
         }
     } else {
         button.text = ""

@@ -2,18 +2,18 @@ package com.udacity.election.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.udacity.election.network.jsonadapter.ElectionAdapter
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import com.udacity.election.network.jsonadapter.ElectionJsonAdapter
 
 object CivicsInstance {
     private const val API_KEY = ""
     private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
     private val moshiInstance = Moshi.Builder()
-        .add(ElectionJsonAdapter())
+        .add(ElectionAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
 

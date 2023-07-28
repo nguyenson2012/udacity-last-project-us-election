@@ -6,6 +6,9 @@
         <variable
             name="election"
             type="com.udacity.election.network.models.Election" />
+        <variable
+            name="clickListener"
+            type="com.udacity.election.election.adapter.ElectionItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
