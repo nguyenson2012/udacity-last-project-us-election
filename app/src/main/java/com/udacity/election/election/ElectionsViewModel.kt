@@ -1,16 +1,41 @@
 package com.udacity.election.election
 
+import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.udacity.election.R
+import com.udacity.election.database.ElectionDatabase
+import com.udacity.election.database.SavedElectionDatabase
+import com.udacity.election.network.CivicsInstance
+import com.udacity.election.network.models.Election
+import com.udacity.election.viewmodel.BaseViewModel
+import kotlinx.coroutines.launch
 
 //TODO: Construct ViewModel and provide election datasource
-class ElectionsViewModel: ViewModel() {
+class ElectionsViewModel(app: Application): BaseViewModel(app) {
+    private val electionsRepository = ElectionsRepository(
+        ElectionDatabase.getInstance(app),
+        SavedElectionDatabase.getInstance(app),
+        CivicsInstance
+    )
+    val activeElections = electionsRepository.activeElections
+    val savedElections = electionsRepository.savedElections
 
-    //TODO: Create live data val for upcoming elections
+    init {
+        refreshElections()
+    }
 
-    //TODO: Create live data val for saved elections
-
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-
-    //TODO: Create functions to navigate to saved or upcoming election voter info
+    private fun refreshElections() {
+        viewModelScope.launch {
+            try {
+                electionsRepository.refresh()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showSnackBarInt.postValue(R.string.no_network_message)
+            }
+        }
+    }
 
 }

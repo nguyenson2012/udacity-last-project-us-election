@@ -17,4 +17,5 @@
     <string name="election_info">Election Information: %s</string>
     <string name="follow_election_text">Follow Election</string>
     <string name="unfollow_election_text">Unfollow Election</string>
+    <string name="no_network_message">Network is not available!</string>
 </resources>

@@ -1,26 +1,63 @@
 package com.udacity.election.representative
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.udacity.election.R
+import com.udacity.election.network.CivicsInstance
+import com.udacity.election.network.models.Address
+import com.udacity.election.viewmodel.BaseViewModel
+import kotlinx.coroutines.launch
 
-class RepresentativeViewModel: ViewModel() {
+class RepresentativesViewModel(app: Application): BaseViewModel(app) {
+    private val representativesRepository = RepresentativesRepository(CivicsInstance)
 
-    //TODO: Establish live data for representatives and address
+    val representatives = representativesRepository.representatives
 
-    //TODO: Create function to fetch representatives from API from a provided address
+    private val _address = MutableLiveData<Address>()
+    val address: LiveData<Address>
+        get() = _address
 
-    /**
-     *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
+    private val _states = MutableLiveData<List<String>>()
+    val states: LiveData<List<String>>
+        get() = _states
 
-    val (offices, officials) = getRepresentativesDeferred.await()
-    _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+    private val selectedIndex = MutableLiveData<Int>()
 
-    Note: getRepresentatives in the above code represents the method used to fetch data from the API
-    Note: _representatives in the above code represents the established mutable live data housing representatives
+    init {
+        _address.value = Address("", "","","New York","")
+        _states.value = app.resources.getStringArray(R.array.states).toList()
+    }
 
-     */
+    fun clickSearchButton() {
+        refreshRepresentatives()
+    }
 
-    //TODO: Create function get address from geo location
+    private fun refreshRepresentatives() {
+        viewModelScope.launch {
+            try {
+                address.value!!.state = getSelectedState(selectedIndex.value!!)
+                val addressStr = address.value!!.toFormattedString()
+                representativesRepository.refresh(addressStr)
 
-    //TODO: Create function to get address from individual fields
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showSnackBarInt.postValue(R.string.no_network_message)
+            }
+        }
+    }
 
+    private fun getSelectedState(stateIndex: Int) : String {
+        return states.value!!.toList()[stateIndex]
+    }
+
+    fun refreshAddress(address: Address) {
+        val stateIndex = _states.value?.indexOf(address.state)
+        if (stateIndex != null && stateIndex >= 0) {
+            selectedIndex.value = stateIndex!!
+            _address.value = address
+            refreshRepresentatives()
+        }
+    }
 }
