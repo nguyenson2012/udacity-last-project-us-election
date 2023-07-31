@@ -13,17 +13,17 @@ import kotlinx.coroutines.launch
 class RepresentativesViewModel(app: Application): BaseViewModel(app) {
     private val representativesRepository = RepresentativesRepository(CivicsInstance)
 
-    val representatives = representativesRepository.representatives
+    var representatives = representativesRepository.representatives
 
     private val _address = MutableLiveData<Address>()
-    val address: LiveData<Address>
+    public val address: MutableLiveData<Address>
         get() = _address
 
     private val _states = MutableLiveData<List<String>>()
-    val states: LiveData<List<String>>
+    public val states: MutableLiveData<List<String>>
         get() = _states
 
-    private val selectedIndex = MutableLiveData<Int>()
+    public val selectedIndex = MutableLiveData<Int>()
 
     init {
         _address.value = Address("", "","","New York","")
@@ -43,7 +43,7 @@ class RepresentativesViewModel(app: Application): BaseViewModel(app) {
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                showSnackBarInt.postValue(R.string.no_network_message)
+                showSnackBarIntResource.postValue(R.string.no_network_message)
             }
         }
     }

@@ -38,10 +38,10 @@ class RepresentativeViewHolder(val binding: RepresentativeItemBinding): Recycler
     fun bind(item: Representative) {
         binding.representative = item
         binding.imgviewAvatar.setImageResource(R.drawable.ic_profile)
-        data.official.channels?.let {
+        item.official.channels?.let {
             showSocialLinks(it);
         }
-        data.official.urls?.let {
+        item.official.urls?.let {
             showWWWLinks(it);
         }
         binding.executePendingBindings()

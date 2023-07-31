@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object CivicsInstance {
-    private const val API_KEY = ""
+    private const val API_KEY = "AIzaSyBgNc70ArQIheu7SDsTJtiwU-ad5htoRak"
     private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
     private val moshiInstance = Moshi.Builder()

@@ -8,11 +8,9 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.udacity.election.network.models.Address
 import java.util.Locale
-import androidx.navigation.fragment.findNavController
 import com.udacity.election.BaseFragment
 import android.Manifest
 import android.annotation.SuppressLint

@@ -20,4 +20,6 @@
     <string name="no_network_message">Network is not available!</string>
     <string name="location_required_err_msg">Location service is required!</string>
     <string name="no_location_permission_msg">Location permission is not granted!</string>
+    <string name="no_any_browser_msg">No browser available!</string>
+    <string name="voting_location">Voting Location</string>
 </resources>

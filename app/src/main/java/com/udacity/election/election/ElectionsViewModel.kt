@@ -32,7 +32,7 @@ class ElectionsViewModel(app: Application): BaseViewModel(app) {
                 electionsRepository.refresh()
             } catch (e: Exception) {
                 e.printStackTrace()
-                showSnackBarInt.postValue(R.string.no_network_message)
+                showSnackBarIntResource.postValue(R.string.no_network_message)
             }
         }
     }

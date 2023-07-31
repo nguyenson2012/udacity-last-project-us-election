@@ -3,10 +3,8 @@ package com.udacity.election.election
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.udacity.election.R
-import com.udacity.election.database.ElectionDao
 import com.udacity.election.database.SavedElectionDatabase
 import com.udacity.election.database.VoterInfoDatabase
 import com.udacity.election.network.CivicsInstance
@@ -66,7 +64,7 @@ class VoterInfoViewModel(app: Application): BaseViewModel(app) {
                 voterInfoRepository.loadById(data.id)
             } catch (e: Exception) {
                 e.printStackTrace()
-                showSnackBarInt.postValue(R.string.no_network_message)
+                showSnackBarIntResource.postValue(R.string.no_network_message)
                 voterInfoRepository.loadById(data.id)
             }
         }
