@@ -13,7 +13,6 @@ import com.udacity.election.network.models.Election
 import com.udacity.election.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
-//TODO: Construct ViewModel and provide election datasource
 class ElectionsViewModel(app: Application): BaseViewModel(app) {
     private val electionsRepository = ElectionsRepository(
         ElectionDatabase.getInstance(app),
