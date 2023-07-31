@@ -27,11 +27,8 @@
         android:name="com.udacity.election.election.VoterInfoFragment"
         android:label="fragment_voter_info">
         <argument
-            android:name="arg_election_id"
-            app:argType="integer" />
-        <argument
-            android:name="arg_division"
-            app:argType="com.udacity.election.network.models.Division" />
+            android:name="election"
+            app:argType="com.udacity.election.network.models.Election" />
     </fragment>
     <fragment
         android:id="@+id/electionsFragment"
@@ -41,5 +38,4 @@
             android:id="@+id/action_electionsFragment_to_voterInfoFragment"
             app:destination="@id/voterInfoFragment" />
     </fragment>
-
 </navigation>
