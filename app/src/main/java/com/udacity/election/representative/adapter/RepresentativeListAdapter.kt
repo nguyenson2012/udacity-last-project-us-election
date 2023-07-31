@@ -38,14 +38,14 @@ class RepresentativeViewHolder(val binding: RepresentativeItemBinding): Recycler
     fun bind(item: Representative) {
         binding.representative = item
         binding.imgviewAvatar.setImageResource(R.drawable.ic_profile)
-
-        //TODO: Show social links ** Hint: Use provided helper methods
-        //TODO: Show www link ** Hint: Use provided helper methods
-
+        data.official.channels?.let {
+            showSocialLinks(it);
+        }
+        data.official.urls?.let {
+            showWWWLinks(it);
+        }
         binding.executePendingBindings()
     }
-
-    //TODO: Add companion object to inflate ViewHolder (from)
 
     private fun showSocialLinks(channels: List<Channel>) {
         val facebookUrl = getFacebookUrl(channels)
@@ -93,5 +93,3 @@ class RepresentativeDiffCallback: DiffUtil.ItemCallback<Representative>() {
         return oldItem == newItem
     }
 }
-
-//TODO: Create RepresentativeListener

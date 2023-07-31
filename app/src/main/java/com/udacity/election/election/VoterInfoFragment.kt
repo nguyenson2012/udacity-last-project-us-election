@@ -5,31 +5,57 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.udacity.election.BaseFragment
 
-class VoterInfoFragment : Fragment() {
+class VoterInfoFragment : BaseFragment() {
+    private val navController by lazy { findNavController() }
+    override val viewModel: VoterInfoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?)
     : View? {
+        val binding = VoterInfoFragmentBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
-        // TODO: Add ViewModel values and create ViewModel
+        val arguments = VoterInfoFragmentArgs.fromBundle(requireArguments())
+        viewModel.refresh(arguments.election)
 
-        // TODO: Add binding values
-
-        // TODO: Populate voter info -- hide views without provided data.
-
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-        */
-
-        // TODO: Handle loading of URLs
-
-        // TODO: Handle save button UI state
-        // TODO: cont'd Handle save button clicks
-        return null
+        binding.stateLocations.setOnClickListener {
+            val urlStr = viewModel.voterInfo.value?.votingLocationUrl
+            urlStr?.run {
+                startActivityUrlIntent(this)
+            }
+        }
+        binding.stateBallot.setOnClickListener {
+            val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
+            urlStr?.run {
+                startActivityUrlIntent(this)
+            }
+        }
+        return binding.root
     }
 
-    // TODO: Create method to load URL intents
+    private fun startActivityUrlIntent(urlStr: String) {
+        val uri: Uri = Uri.parse(urlStr)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+
+        try {
+            intent.setPackage("com.android.chrome")
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            try {
+                intent.setPackage(null)
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                val snack = Snackbar.make(
+                    requireView(),
+                    getString(R.string.no_web_browser_found_msg),
+                    Snackbar.LENGTH_LONG)
+                snack.show()
+            }
+        }
+    }
 }
