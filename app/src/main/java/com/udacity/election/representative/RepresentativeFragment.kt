@@ -32,8 +32,13 @@ import com.udacity.election.databinding.FragmentRepresentativeBinding
 import com.udacity.election.representative.adapter.RepresentativeListAdapter
 
 class RepresentativesFragment : BaseFragment() {
+    companion object {
+        private const val MOTION_LAYOUT_STATE = "MotionLayoutState"
+    }
+
     override val viewModel: RepresentativesViewModel by viewModels()
 
+    private lateinit var motionLayout: MotionLayout
     private lateinit var requestLauncher : ActivityResultLauncher<String>
     private lateinit var settingLauncher : ActivityResultLauncher<IntentSenderRequest>
 
@@ -46,6 +51,7 @@ class RepresentativesFragment : BaseFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        motionLayout = binding.motionLayout
         val adapter = RepresentativeListAdapter()
         binding.recyclerviewRepresentatives.adapter = adapter
         viewModel.representatives.observe(viewLifecycleOwner) { representatives ->
@@ -59,7 +65,21 @@ class RepresentativesFragment : BaseFragment() {
         registerEnableLocationCallback()
         binding.btnLocation.setOnClickListener { checkLocationPermissions()}
 
+        viewModel.representatives.observe(viewLifecycleOwner, Observer {
+            motionLayout.isInteractionEnabled = it.isNullOrEmpty()
+        })
+
+
+        if (savedInstanceState != null) {
+            motionLayout.transitionState = savedInstanceState.getBundle(MOTION_LAYOUT_STATE)
+        }
+
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBundle(MOTION_LAYOUT_STATE, motionLayout.transitionState)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
