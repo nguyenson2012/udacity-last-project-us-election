@@ -12,9 +12,10 @@ class LaunchFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentLaunchBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
-        binding.btnRepresentatives.setOnClickListener { navToRepresentatives() }
-        binding.btnUpcomingElection.setOnClickListener { navToElections() }
+        with(binding) {
+            btnRepresentatives.setOnClickListener { navToRepresentatives() }
+            btnUpcomingElection.setOnClickListener { navToElections() }
+        }
 
         return binding.root
     }

@@ -54,11 +54,13 @@ class VoterInfoFragment : BaseFragment() {
                 intent.setPackage(null)
                 startActivity(intent)
             } catch (e: ActivityNotFoundException) {
-                val snack = Snackbar.make(
-                    requireView(),
-                    getString(R.string.no_any_browser_msg),
-                    Snackbar.LENGTH_LONG)
-                snack.show()
+                if (view != null) {
+                    val snack = Snackbar.make(
+                        requireView(),
+                        getString(R.string.no_any_browser_msg),
+                        Snackbar.LENGTH_LONG)
+                    snack.show()
+                }
             }
         }
     }

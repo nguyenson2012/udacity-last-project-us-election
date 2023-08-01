@@ -31,7 +31,7 @@ import com.udacity.election.R
 import com.udacity.election.databinding.FragmentRepresentativeBinding
 import com.udacity.election.representative.adapter.RepresentativeListAdapter
 
-class DetailFragment : BaseFragment() {
+class RepresentativesFragment : BaseFragment() {
     override val viewModel: RepresentativesViewModel by viewModels()
 
     private lateinit var requestLauncher : ActivityResultLauncher<String>

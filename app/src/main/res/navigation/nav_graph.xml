@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/representativeFragment"
-        android:name="com.udacity.election.representative.DetailFragment"
+        android:name="com.udacity.election.representative.RepresentativesFragment"
         android:label="fragment_representative"
         tools:layout="@layout/fragment_representative"/>
     <fragment
