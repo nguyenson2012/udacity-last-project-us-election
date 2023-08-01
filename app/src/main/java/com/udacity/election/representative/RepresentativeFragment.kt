@@ -19,7 +19,9 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.os.Looper
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -69,11 +71,9 @@ class RepresentativesFragment : BaseFragment() {
             motionLayout.isInteractionEnabled = it.isNullOrEmpty()
         })
 
-
         if (savedInstanceState != null) {
             motionLayout.transitionState = savedInstanceState.getBundle(MOTION_LAYOUT_STATE)
         }
-
         return binding.root
     }
 
