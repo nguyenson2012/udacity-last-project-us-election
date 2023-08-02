@@ -1,5 +1,6 @@
 package com.udacity.election.election
 
+import android.util.Log
 import com.udacity.election.database.ElectionDatabase
 import com.udacity.election.database.SavedElectionDatabase
 import com.udacity.election.network.CivicsInstance

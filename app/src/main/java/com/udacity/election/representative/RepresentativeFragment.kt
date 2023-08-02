@@ -32,6 +32,7 @@ import com.google.android.gms.location.Priority
 import com.udacity.election.R
 import com.udacity.election.databinding.FragmentRepresentativeBinding
 import com.udacity.election.representative.adapter.RepresentativeListAdapter
+import com.udacity.election.representative.model.Representative
 
 class RepresentativesFragment : BaseFragment() {
     companion object {
@@ -72,17 +73,17 @@ class RepresentativesFragment : BaseFragment() {
             motionLayout.isInteractionEnabled = it.isNullOrEmpty()
         })
 
-       viewModel.restoreRepList(savedInstanceState?.getParcelableArrayList<Representative>(REP_LIST_KEY)?.toList())
+       viewModel.restoreRepList(savedInstanceState?.getParcelableArrayList<Representative>(
+           REPRESENTATIVE_LIST_KEY)?.toList())
         savedInstanceState?.getBundle(MOTION_LAYOUT_STATE_KEY)?.let {
-                binding.motinLayout.transitionState = it
-                Log.d(TAG, "MOTION_LAYOUT_STATE_KEY: $it")
+                motionLayout.transitionState = it
         }
         return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val motionLayoutState = binding.motinLayout.transitionState
+        val motionLayoutState = motionLayout.transitionState
         val representativeList = viewModel.representatives.value as ArrayList<Representative>
         outState.putBundle(MOTION_LAYOUT_STATE_KEY, motionLayoutState)
         outState.putParcelableArrayList(REPRESENTATIVE_LIST_KEY, representativeList)
