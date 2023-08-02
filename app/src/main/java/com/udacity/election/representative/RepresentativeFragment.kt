@@ -35,7 +35,8 @@ import com.udacity.election.representative.adapter.RepresentativeListAdapter
 
 class RepresentativesFragment : BaseFragment() {
     companion object {
-        private const val MOTION_LAYOUT_STATE = "MotionLayoutState"
+        private const val MOTION_LAYOUT_STATE_KEY = "MotionLayoutState"
+        private const val REPRESENTATIVE_LIST_KEY = "RepresentativeListKey"
     }
 
     override val viewModel: RepresentativesViewModel by viewModels()
@@ -71,15 +72,20 @@ class RepresentativesFragment : BaseFragment() {
             motionLayout.isInteractionEnabled = it.isNullOrEmpty()
         })
 
-        if (savedInstanceState != null) {
-            motionLayout.transitionState = savedInstanceState.getBundle(MOTION_LAYOUT_STATE)
+       viewModel.restoreRepList(savedInstanceState?.getParcelableArrayList<Representative>(REP_LIST_KEY)?.toList())
+        savedInstanceState?.getBundle(MOTION_LAYOUT_STATE_KEY)?.let {
+                binding.motinLayout.transitionState = it
+                Log.d(TAG, "MOTION_LAYOUT_STATE_KEY: $it")
         }
         return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBundle(MOTION_LAYOUT_STATE, motionLayout.transitionState)
+        val motionLayoutState = binding.motinLayout.transitionState
+        val representativeList = viewModel.representatives.value as ArrayList<Representative>
+        outState.putBundle(MOTION_LAYOUT_STATE_KEY, motionLayoutState)
+        outState.putParcelableArrayList(REPRESENTATIVE_LIST_KEY, representativeList)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

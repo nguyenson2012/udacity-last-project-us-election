@@ -60,4 +60,10 @@ class RepresentativesViewModel(app: Application): BaseViewModel(app) {
             refreshRepresentatives()
         }
     }
+
+    fun restoreRepList(repList: List<Representative>?){
+        if (repList != null) {
+            representatives.value = repList!!
+        }
+    }
 }
